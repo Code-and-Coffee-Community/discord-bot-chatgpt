@@ -26,6 +26,10 @@ client.on("messageCreate", (message) => {
         const api = new ChatGPTAPI({ sessionToken: session })
         await api.ensureAuth()
         const response = await api.sendMessage(message.content)
-        message.reply({content: response});
+
+        for (let i = 0; i < response.length; i += 2000) {
+            const toSend = response.substring(i, Math.min(response.length, i + 2000));
+            message.reply({content: toSend});
+        }
     })()
 });
