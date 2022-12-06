@@ -1,6 +1,4 @@
-# Discord Bot: Magische Miesmuschel
-
-Video: https://www.tiktok.com/@jonathanschndr/video/7010062484308528389
+# Discord Bot: ChatGTP
 
 ## Requirements
 - Mac, Windows oder Linux System
@@ -18,8 +16,9 @@ Video: https://www.tiktok.com/@jonathanschndr/video/7010062484308528389
 7. Kopiere dir diesen Ordner
 8. Gehe zurück und kopiere dir den Client Secret von der Bot Seite
 9. Erstelle eine .env mit DISCORD_BOT_TOKEN=%DEIN_CLIENT_SECRET% von der Seite
-10. Führe `npm install` aus
-11. Starte den Bot mit `npm run start`
+10. Erstelle eine .env mit OPENAI_SESSION_TOKEN=%DEIN_SESSION_TOKEN% von OpenAI
+11. Führe `npm install` aus
+12. Starte den Bot mit `npm run start`
 
 
 Wichtig: Wenn du dies lokal auf deinem Rechner ausführst, funktioniert der Bot nur solange dein Rechner läuft. Alternativ musst du diesen Bot auf einem externen Server ausführen.
