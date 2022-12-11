@@ -6,7 +6,7 @@ dotenv.config();
 
 const token = process.env.DISCORD_BOT_TOKEN;
 const session = process.env.OPENAI_SESSION_TOKEN;
-const devChannelId = process.env.DEV_CHANNEL_ID || "1042478775251775569";
+const logChannelId = process.env.LOG_CHANNEL_ID;
 
 const {Client, GatewayIntentBits} = discord;
 
@@ -37,7 +37,7 @@ client.on("messageCreate", (message) => {
                 message.reply({content: toSend});
             }
         } catch (e) {
-            client.channels.fetch(devChannelId).then((channel) => {
+            client.channels.fetch(logChannelId).then((channel) => {
                 channel.send({content: e.message});
             });
         }
