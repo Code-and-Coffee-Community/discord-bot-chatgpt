@@ -1,11 +1,13 @@
 import * as dotenv from "dotenv";
 import discord from "discord.js";
-import { ChatGPTAPI } from 'chatgpt'
+import {ChatGPTAPI} from "chatgpt";
 
 dotenv.config();
 
 const token = process.env.DISCORD_BOT_TOKEN;
 const session = process.env.OPENAI_SESSION_TOKEN;
+const devChannelId = process.env.DEV_CHANNEL_ID || "1042478775251775569";
+
 const {Client, GatewayIntentBits} = discord;
 
 const intents = [
@@ -17,19 +19,27 @@ const intents = [
 const client = new Client({intents});
 client.login(token);
 
+client.channels.fetch();
+
 client.on("messageCreate", (message) => {
     if (!message.content.startsWith("GPT:")) {
         return;
     }
 
     (async () => {
-        const api = new ChatGPTAPI({ sessionToken: session })
-        await api.ensureAuth()
-        const response = await api.sendMessage(message.content)
+        try {
+            const api = new ChatGPTAPI({sessionToken: session});
+            await api.ensureAuth();
+            const response = await api.sendMessage(message.content);
 
-        for (let i = 0; i < response.length; i += 2000) {
-            const toSend = response.substring(i, Math.min(response.length, i + 2000));
-            message.reply({content: toSend});
+            for (let i = 0; i < response.length; i += 2000) {
+                const toSend = response.substring(i, Math.min(response.length, i + 2000));
+                message.reply({content: toSend});
+            }
+        } catch (e) {
+            client.channels.fetch(devChannelId).then((channel) => {
+                channel.send({content: e.message});
+            });
         }
-    })()
+    })();
 });
