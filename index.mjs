@@ -22,8 +22,6 @@ const intents = [
 const client = new Client({intents});
 client.login(token);
 
-client.channels.fetch();
-
 client.on("messageCreate", (message) => {
     if (!message.content.startsWith("GPT:")) {
         return;
