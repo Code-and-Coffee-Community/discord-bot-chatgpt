@@ -3,7 +3,7 @@
     "start": "node index.mjs"
   },
   "dependencies": {
-    "chatgpt": "^1.4.0",
+    "chatgpt": "^2.1.1",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3"
   }
