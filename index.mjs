@@ -5,10 +5,11 @@ import {ChatGPTAPI} from "chatgpt";
 dotenv.config();
 
 const token = process.env.DISCORD_BOT_TOKEN;
+const logChannelId = process.env.DISCORD_LOG_CHANNEL_ID;
+
 const session = process.env.OPENAI_SESSION_TOKEN;
 const clearance = process.env.OPENAI_CLEARANCE_TOKEN;
 const userAgent = process.env.OPENAI_USERAGENT;
-const logChannelId = process.env.LOG_CHANNEL_ID;
 
 const {Client, GatewayIntentBits} = discord;
 
