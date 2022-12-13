@@ -6,6 +6,7 @@
     "chatgpt": "^2.3.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
+    "openai": "^3.1.0",
     "puppeteer": "^19.4.0"
   }
 }

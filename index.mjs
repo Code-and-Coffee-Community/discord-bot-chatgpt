@@ -1,14 +1,12 @@
 import * as dotenv from "dotenv";
 import discord from "discord.js";
-import puppeteer from 'puppeteer';
-import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt'
+import { Configuration, OpenAIApi } from "openai";
 
 dotenv.config();
 
 const token = process.env.DISCORD_BOT_TOKEN;
-
-const email = process.env.OPENAI_EMAIL;
-const password = process.env.OPENAI_PASSWORD;
+const openaiApiKey = process.env.OPENAI_API_KEY;
+const openaiOrganization = process.env.OPENAI_ORGANIZATION_ID;
 
 const {Client, GatewayIntentBits} = discord;
 
@@ -17,6 +15,12 @@ const intents = [
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
 ];
+
+const openaiApiConfiguration = new Configuration({
+    organization: openaiOrganization,
+    apiKey: openaiApiKey
+});
+const openai = new OpenAIApi(openaiApiConfiguration);
 
 const client = new Client({intents});
 client.login(token);
@@ -28,27 +32,17 @@ client.on("messageCreate", (message) => {
 
     (async () => {
         try {
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ["--no-sandbox", "--exclude-switches", "enable-automation"],
-                ignoreHTTPSErrors: true,
+            const response = await openai.createCompletion({
+                model: "text-davinci-002",
+                prompt: message.content,
             });
-
-            const openAIAuth = await getOpenAIAuth({
-                email: email,
-                password: password,
-                browser: browser
-            })
-
-            const api = new ChatGPTAPI({ ...openAIAuth });
-            await api.ensureAuth();
-            const response = await api.sendMessage(message.content);
 
             for (let i = 0; i < response.length; i += 2000) {
                 const toSend = response.substring(i, Math.min(response.length, i + 2000));
                 message.reply({content: toSend});
             }
         } catch (e) {
+            console.log(e);
             message.reply({content: e.message});
         }
     })();
