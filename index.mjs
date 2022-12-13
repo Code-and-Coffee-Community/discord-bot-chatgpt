@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import discord from "discord.js";
-import { ChatGPTAPI, getOpenAIAuth } from './chatgpt'
+import puppeteer from 'puppeteer';
+import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt'
 
 dotenv.config();
 
@@ -27,9 +28,16 @@ client.on("messageCreate", (message) => {
 
     (async () => {
         try {
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ["--no-sandbox", "--exclude-switches", "enable-automation"],
+                ignoreHTTPSErrors: true,
+            });
+
             const openAIAuth = await getOpenAIAuth({
                 email: email,
-                password: password
+                password: password,
+                browser: browser
             })
 
             const api = new ChatGPTAPI({ ...openAIAuth });
