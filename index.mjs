@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import discord from "discord.js";
+import discord, {Message} from "discord.js";
 import { Configuration, OpenAIApi } from "openai";
 
 dotenv.config();
@@ -37,12 +37,20 @@ client.on("messageCreate", (message) => {
                 prompt: message.content,
             });
 
-            for (let i = 0; i < response.length; i += 2000) {
-                const toSend = response.substring(i, Math.min(response.length, i + 2000));
+            const completion = response.data.choices[0].text;
+
+            for (let i = 0; i < completion.length; i += 2000) {
+                const toSend = completion.substring(i, Math.min(completion.length, i + 2000));
                 message.reply({content: toSend});
             }
         } catch (e) {
-            console.log(e);
+            if (e.response) {
+                console.log(e.response.status);
+                console.log(e.response.data);
+            } else {
+                console.log(e);
+            }
+
             message.reply({content: e.message});
         }
     })();
