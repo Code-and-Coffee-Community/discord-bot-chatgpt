@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import discord from "discord.js";
-import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt'
+import { ChatGPTAPI, getOpenAIAuth } from './chatgpt'
 
 dotenv.config();
 
