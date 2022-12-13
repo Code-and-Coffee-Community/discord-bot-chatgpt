@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import discord, {Message} from "discord.js";
+import discord from "discord.js";
 import { Configuration, OpenAIApi } from "openai";
 
 dotenv.config();
