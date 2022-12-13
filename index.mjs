@@ -5,7 +5,6 @@ import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt'
 dotenv.config();
 
 const token = process.env.DISCORD_BOT_TOKEN;
-const logChannelId = process.env.DISCORD_LOG_CHANNEL_ID;
 
 const email = process.env.OPENAI_EMAIL;
 const password = process.env.OPENAI_PASSWORD;
@@ -42,9 +41,7 @@ client.on("messageCreate", (message) => {
                 message.reply({content: toSend});
             }
         } catch (e) {
-            client.channels.fetch(logChannelId).then((channel) => {
-                channel.send({content: e.message});
-            });
+            message.reply({content: e.message});
         }
     })();
 });
