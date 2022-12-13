@@ -41,7 +41,7 @@ client.on("messageCreate", (message) => {
                 message.reply({content: toSend});
             }
         } catch (e) {
-            message.reply({content: e.message});
+            message.reply({content: `Es tut uns leid. Bei der Anfrage an die OpenAI-API ist ein Fehler [Code: ${e.code}] aufgetreten. Bitte versuche es später erneut oder markiere jemanden aus dem Team, damit wir uns dem Problem annehmen können.`});
         }
     })();
 });
