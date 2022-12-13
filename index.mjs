@@ -7,9 +7,8 @@ dotenv.config();
 const token = process.env.DISCORD_BOT_TOKEN;
 const logChannelId = process.env.DISCORD_LOG_CHANNEL_ID;
 
-const session = process.env.OPENAI_SESSION_TOKEN;
-const clearance = process.env.OPENAI_CLEARANCE_TOKEN;
-const userAgent = process.env.OPENAI_USERAGENT;
+const email = process.env.OPENAI_EMAIL;
+const password = process.env.OPENAI_PASSWORD;
 
 const {Client, GatewayIntentBits} = discord;
 
@@ -29,11 +28,12 @@ client.on("messageCreate", (message) => {
 
     (async () => {
         try {
-            const api = new ChatGPTAPI({
-                sessionToken: session,
-                clearanceToken: clearance,
-                userAgent: userAgent
-            });
+            const openAIAuth = await getOpenAIAuth({
+                email: email,
+                password: password
+            })
+
+            const api = new ChatGPTAPI({ ...openAIAuth });
             await api.ensureAuth();
             const response = await api.sendMessage(message.content);
 

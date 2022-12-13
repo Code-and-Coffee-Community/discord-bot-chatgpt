@@ -3,8 +3,9 @@
     "start": "node index.mjs"
   },
   "dependencies": {
-    "chatgpt": "^2.1.1",
+    "chatgpt": "^2.3.0",
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "puppeteer": "^19.4.0"
   }
 }
