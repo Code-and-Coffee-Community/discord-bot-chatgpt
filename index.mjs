@@ -44,14 +44,7 @@ client.on("messageCreate", (message) => {
                 message.reply({content: toSend});
             }
         } catch (e) {
-            if (e.response) {
-                console.log(e.response.status);
-                console.log(e.response.data);
-            } else {
-                console.log(e);
-            }
-
-            message.reply({content: e.message});
+            message.reply({content: `Bei der Anfrage an OpenAI ist ein Fehler aufgetreten. Bitte probiere es später nochmals.`});
         }
     })();
 });
