@@ -26,17 +26,18 @@ client.on("messageCreate", (message) => {
 
     (async () => {
         try {
-            const api = new ChatGPTAPIBrowser({
-                email: email,
-                password: password,
-            });
-            await api.initSession();
-            const response = await api.sendMessage(message.content);
+            // const api = new ChatGPTAPIBrowser({
+            //     email: email,
+            //     password: password,
+            // });
+            // await api.initSession();
+            // const response = await api.sendMessage(message.content);
 
-            for (let i = 0; i < response.length; i += 2000) {
-                const toSend = response.substring(i, Math.min(response.length, i + 2000));
-                message.reply({content: toSend});
-            }
+            // for (let i = 0; i < response.length; i += 2000) {
+            //     const toSend = response.substring(i, Math.min(response.length, i + 2000));
+            //     message.reply({content: toSend});
+            // }
+            message.reply({content: "Aktuell ist der ChatGPT Bot leider im Wartungsmodus, da Microsoft die externe Nutzung blockiert. Sobald es eine offizielle Schnittstelle gibt, werden wir diese anbinden. Danke für eure Geduld! :)"});
         } catch (e) {
             message.reply({content: e.message});
         }
